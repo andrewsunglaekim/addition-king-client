@@ -5,12 +5,14 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-
+    maxNum: 0,
+    currentRoute: {},
   },
   mutations: {
-
+    routeChange(state, route) {
+      state.currentRoute = route; //eslint-disable-line
+    },
   },
   actions: {
-
   },
 });
