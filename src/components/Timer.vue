@@ -1,6 +1,8 @@
 <template>
   <div class="timer">
-    <div class="timer__seconds">{{ numSeconds }}{{ intervalID }}</div>
+    <div
+      v-if="intervalID"
+      class="timer__seconds">{{ numSeconds }}</div>
     <button
       class="timer__button"
       @click="handleClick">Go!
