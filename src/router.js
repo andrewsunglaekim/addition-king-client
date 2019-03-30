@@ -9,7 +9,7 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path: '/:maxNum',
+      path: '/:answerRange',
       name: 'Main',
       component: Main,
     },

@@ -17,6 +17,8 @@
 
 <script>
   import { mapState } from 'vuex';
+
+  import Score from '@/models/Score';
   import Quiz from './Quiz.vue';
   import Timer from './Timer.vue';
   import UserPrompt from './UserPrompt.vue';
@@ -37,12 +39,13 @@
         numQuestions: 0,
         numCorrect: 0,
         isPromptingUser: false,
+        numTotalQuestions: 4,
       };
     },
 
     computed: {
       ...mapState({
-        maxNum: state => parseInt(state.currentRoute.to.params.maxNum), // eslint-disable-line
+        answerRange: state => parseInt(state.currentRoute.to.params.answerRange), // eslint-disable-line
       }),
     },
 
@@ -54,7 +57,7 @@
             this.numCorrect += 1;
           }
         }
-        if (this.numQuestions === 3) {
+        if (this.numQuestions === this.numTotalQuestions) {
           this.isPromptingUser = true;
           this.clearTimer();
         }
@@ -72,13 +75,15 @@
         this.intervalID = null;
       },
 
-      handleNameEntered(userName) {
+      async handleNameEntered(userName) {
         const data = {
           userName,
           numSeconds: this.numSeconds,
           numCorrect: this.numCorrect,
-          maxNum: this.maxNum,
+          numQuestions: this.numTotalQuestions,
+          answerRange: this.answerRange,
         };
+        await Score.createOne(data);
         console.log(data);
         // TODO: send data then on success do the following
         this.resetGame();
@@ -95,6 +100,9 @@
 </script>
 
 <style lang="scss">
+  body {
+    margin: 0;
+  }
   .main {
   }
 </style>

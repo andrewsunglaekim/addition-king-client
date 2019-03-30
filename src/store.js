@@ -5,7 +5,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    maxNum: 0,
+    answerRange: 0,
     currentRoute: {},
   },
   mutations: {
