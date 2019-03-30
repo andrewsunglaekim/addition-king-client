@@ -1,15 +1,18 @@
 <template>
   <div class="main">
-    <Quiz @questionAnswered="handleQuestionAnswered"/>
+    <Quiz @questionAnswered="handleQuestionAnswered" />
     <Timer
       :numSeconds="numSeconds"
       :intervalID="intervalID"
-      @timerStarted="handleTimerStart"/>
-    <UserPrompt v-if="isPromptingUser"/>
+      @timerStarted="handleTimerStart" />
+    <UserPrompt
+      v-if="isPromptingUser"
+      @nameEntered="handleNameEntered" />
   </div>
 </template>
 
 <script>
+  import { mapState } from 'vuex';
   import Quiz from './Quiz.vue';
   import Timer from './Timer.vue';
   import UserPrompt from './UserPrompt.vue';
@@ -31,6 +34,12 @@
         numCorrect: 0,
         isPromptingUser: false,
       };
+    },
+
+    computed: {
+      ...mapState({
+        maxNum: state => parseInt(state.currentRoute.to.params.maxNum), // eslint-disable-line
+      }),
     },
 
     methods: {
@@ -60,7 +69,16 @@
         this.intervalID = 0;
       },
 
-
+      handleNameEntered(userName) {
+        const data = {
+          userName,
+          numSeconds: this.numSeconds,
+          numCorrect: this.numCorrect,
+          maxNum: this.maxNum,
+        };
+        console.log('name entered!');
+        console.log(data);
+      },
     },
   };
 </script>
