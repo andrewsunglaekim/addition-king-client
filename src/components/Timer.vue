@@ -4,6 +4,7 @@
       v-if="intervalID"
       class="timer__seconds">{{ numSeconds }}</div>
     <button
+      v-if="!intervalID"
       class="timer__button"
       @click="handleClick">Go!
     </button>

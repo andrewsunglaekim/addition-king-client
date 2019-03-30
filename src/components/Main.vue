@@ -1,7 +1,11 @@
 <template>
   <div class="main">
-    <Quiz @questionAnswered="handleQuestionAnswered" />
+    <Quiz
+      v-if="!isPromptingUser"
+      ref="quiz"
+      @questionAnswered="handleQuestionAnswered" />
     <Timer
+      v-if="!isPromptingUser"
       :numSeconds="numSeconds"
       :intervalID="intervalID"
       @timerStarted="handleTimerStart" />
@@ -30,7 +34,7 @@
       return {
         intervalID: null,
         numSeconds: 0,
-        numQuestion: 0,
+        numQuestions: 0,
         numCorrect: 0,
         isPromptingUser: false,
       };
@@ -45,19 +49,18 @@
     methods: {
       handleQuestionAnswered(value) {
         if (this.intervalID) {
-          this.numQuestion += 1;
+          this.numQuestions += 1;
           if (value) {
             this.numCorrect += 1;
           }
         }
-        if (this.numQuestion === 2) {
+        if (this.numQuestions === 3) {
           this.isPromptingUser = true;
           this.clearTimer();
         }
-        console.log(this.numQuestion);
-        console.log(this.numCorrect);
       },
       handleTimerStart() {
+        this.$refs.quiz.generateRandomNumbers();
         if (!this.intervalID) {
           this.intervalID = setInterval(() => {
             this.numSeconds += 1;
@@ -66,7 +69,7 @@
       },
       clearTimer() {
         clearInterval(this.intervalID);
-        this.intervalID = 0;
+        this.intervalID = null;
       },
 
       handleNameEntered(userName) {
@@ -76,8 +79,16 @@
           numCorrect: this.numCorrect,
           maxNum: this.maxNum,
         };
-        console.log('name entered!');
         console.log(data);
+        // TODO: send data then on success do the following
+        this.resetGame();
+      },
+
+      resetGame() {
+        this.numSeconds = 0;
+        this.numQuestions = 0;
+        this.numCorrect = 0;
+        this.isPromptingUser = false;
       },
     },
   };
