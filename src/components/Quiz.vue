@@ -1,14 +1,10 @@
 <template>
   <div class="quiz">
     <div class="quiz__num1">{{ int1 }}</div>
-    <div class="quiz__operator">+</div>
     <div class="quiz__num2">{{ int2 }}</div>
-    <div class="quiz__equal">=</div>
-    <div>{{ answer }}</div>
-    <div>{{ userAnswer }}</div>
     <input
       type="text"
-      class="quiz-input"
+      class="quiz__input"
       @keypress="handleKeypress"
       v-model="userAnswer">
   </div>
@@ -80,12 +76,19 @@
 
 <style scoped lang="scss">
   .quiz {
-    color: $color-red;
-    background: lemonchiffon;
-    font-size: 80px;
+    padding: 3vw;
+    width: 100%;
+    font-size: 7vh;
+    text-align: right;
 
     &__num1 {
       color: blue;
+    }
+
+    &__input {
+      width: 100%;
+      font-size: 7vh;
+      text-align: right;
     }
   }
 </style>

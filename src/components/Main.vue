@@ -1,5 +1,5 @@
 <template>
-  <article class="main">
+  <main class="main">
     <header class="main__header">
       <Navigator @routeChanged="handleRouteChanged"/>
       <h1 class="main__h1">
@@ -11,19 +11,24 @@
         :intervalID="intervalID"
         @timerStarted="handleTimerStart" />
     </header>
-    <main>
+    <section class="main__section">
       <Quiz
         v-if="!isPromptingUser"
+        class="main__quiz"
         ref="quiz"
         @questionAnswered="handleQuestionAnswered" />
       <UserPrompt
         v-if="isPromptingUser"
+        class="main__user-prompt"
         ref="userPrompt"
         @nameEntered="handleNameEntered" />
-      <Leaderboard />
-    </main>
+      <Leaderboard
+        v-if="leaderBoardScores"
+        class="main__leaderboard"
+        :scores="leaderBoardScores"/>
+    </section>
 
-  </article>
+  </main>
 </template>
 
 <script>
@@ -141,5 +146,18 @@
   }
 
   .main {
+
+    &__section {
+      display: flex;
+    }
+
+    &__quiz {
+      flex: 4;
+    }
+
+    &__leaderboard {
+      flex: 3;
+    }
+
   }
 </style>
