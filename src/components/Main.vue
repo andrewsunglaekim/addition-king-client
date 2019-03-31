@@ -1,5 +1,6 @@
 <template>
   <div class="main">
+    <Navigator @routeChanged="handleRouteChanged"/>
     <Quiz
       v-if="!isPromptingUser"
       ref="quiz"
@@ -22,6 +23,7 @@
   import Quiz from './Quiz.vue';
   import Timer from './Timer.vue';
   import UserPrompt from './UserPrompt.vue';
+  import Navigator from './Navigator.vue';
 
   export default {
     name: 'Main',
@@ -30,6 +32,7 @@
       Quiz,
       Timer,
       UserPrompt,
+      Navigator,
     },
 
     data() {
@@ -39,7 +42,9 @@
         numQuestions: 0,
         numCorrect: 0,
         isPromptingUser: false,
-        numTotalQuestions: 4,
+        numTotalQuestions: 1,
+        leaderBoardScores: [],
+        topPlayed: [],
       };
     },
 
@@ -47,6 +52,9 @@
       ...mapState({
         answerRange: state => parseInt(state.currentRoute.to.params.answerRange), // eslint-disable-line
       }),
+      gameFinished() {
+        return this.numQuestions === this.numTotalQuestions;
+      },
     },
 
     methods: {
@@ -57,12 +65,13 @@
             this.numCorrect += 1;
           }
         }
-        if (this.numQuestions === this.numTotalQuestions) {
+        if (this.gameFinished) {
           this.isPromptingUser = true;
           this.clearTimer();
         }
       },
       handleTimerStart() {
+        console.log(this.$refs);
         this.$refs.quiz.generateRandomNumbers();
         if (!this.intervalID) {
           this.intervalID = setInterval(() => {
@@ -74,7 +83,6 @@
         clearInterval(this.intervalID);
         this.intervalID = null;
       },
-
       async handleNameEntered(userName) {
         const data = {
           userName,
@@ -84,17 +92,34 @@
           answerRange: this.answerRange,
         };
         await Score.createOne(data);
-        console.log(data);
-        // TODO: send data then on success do the following
         this.resetGame();
       },
-
+      handleRouteChanged() {
+        this.resetGame();
+        this.$refs.quiz.generateRandomNumbers();
+      },
       resetGame() {
+        this.isPromptingUser = false;
         this.numSeconds = 0;
         this.numQuestions = 0;
         this.numCorrect = 0;
-        this.isPromptingUser = false;
+        this.fetchLeaderBoardScores();
       },
+
+      async fetchMeta() {
+        await this.fetchLeaderBoardScores();
+        const topPlayed = await Score.getTopPlayed();
+        this.topPlayed = topPlayed;
+      },
+
+      async fetchLeaderBoardScores() {
+        const leaderboardScores = await Score.getLeaderBoard(this.answerRange);
+        this.leaderBoardScores = leaderboardScores;
+      },
+    },
+
+    mounted() {
+      this.fetchMeta();
     },
   };
 </script>
@@ -103,6 +128,7 @@
   body {
     margin: 0;
   }
+
   .main {
   }
 </style>

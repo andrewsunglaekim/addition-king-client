@@ -11,11 +11,22 @@ class Score {
 
   static async getLeaderBoard(answerRange) {
     try {
-      const scores = axios.get(`http://localhost:4000/leaderboards/${answerRange}`);
+      const scores = await axios.get(`http://localhost:4000/leaderboards/${answerRange}`);
       return scores.data;
     } catch (err) {
       console.log(err);
     }
+    return null;
+  }
+
+  static async getTopPlayed() {
+    try {
+      const topPlayed = await axios.get('http://localhost:4000/topPlayed');
+      return topPlayed.data;
+    } catch (err) {
+      console.log(err);
+    }
+    return null;
   }
 }
 

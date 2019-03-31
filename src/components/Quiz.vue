@@ -60,7 +60,6 @@
         }
         this.generateRandomNumbers();
         this.userAnswer = '';
-        console.log('user answer ""');
       },
       // https://math.stackexchange.com/questions/3166572/getting-2-random-numbers-to-add-up-to-less-then-number-n?noredirect=1#comment6520438_3166572
       generateRandomNumbers() {
@@ -81,7 +80,7 @@
 <style scoped lang="scss">
   .quiz {
     color: $color-red;
-    background: red;
+    background: lemonchiffon;
     font-size: 80px;
 
     &__num1 {
