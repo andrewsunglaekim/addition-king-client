@@ -72,6 +72,7 @@
     },
 
     mounted() {
+      this.$el.querySelector('input').focus();
       this.generateRandomNumbers();
     },
   };

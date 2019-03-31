@@ -1,19 +1,29 @@
 <template>
-  <div class="main">
-    <Navigator @routeChanged="handleRouteChanged"/>
-    <Quiz
-      v-if="!isPromptingUser"
-      ref="quiz"
-      @questionAnswered="handleQuestionAnswered" />
-    <Timer
-      v-if="!isPromptingUser"
-      :numSeconds="numSeconds"
-      :intervalID="intervalID"
-      @timerStarted="handleTimerStart" />
-    <UserPrompt
-      v-if="isPromptingUser"
-      @nameEntered="handleNameEntered" />
-  </div>
+  <article class="main">
+    <header class="main__header">
+      <Navigator @routeChanged="handleRouteChanged"/>
+      <h1 class="main__h1">
+        Addition King
+      </h1>
+      <Timer
+        v-if="!isPromptingUser"
+        :numSeconds="numSeconds"
+        :intervalID="intervalID"
+        @timerStarted="handleTimerStart" />
+    </header>
+    <main>
+      <Quiz
+        v-if="!isPromptingUser"
+        ref="quiz"
+        @questionAnswered="handleQuestionAnswered" />
+      <UserPrompt
+        v-if="isPromptingUser"
+        ref="userPrompt"
+        @nameEntered="handleNameEntered" />
+      <Leaderboard />
+    </main>
+
+  </article>
 </template>
 
 <script>
@@ -24,6 +34,7 @@
   import Timer from './Timer.vue';
   import UserPrompt from './UserPrompt.vue';
   import Navigator from './Navigator.vue';
+  import Leaderboard from './Leaderboard.vue';
 
   export default {
     name: 'Main',
@@ -33,6 +44,7 @@
       Timer,
       UserPrompt,
       Navigator,
+      Leaderboard,
     },
 
     data() {
@@ -73,6 +85,7 @@
       handleTimerStart() {
         console.log(this.$refs);
         this.$refs.quiz.generateRandomNumbers();
+        this.$refs.quiz.$el.querySelector('input').focus();
         if (!this.intervalID) {
           this.intervalID = setInterval(() => {
             this.numSeconds += 1;
@@ -108,13 +121,11 @@
 
       async fetchMeta() {
         await this.fetchLeaderBoardScores();
-        const topPlayed = await Score.getTopPlayed();
-        this.topPlayed = topPlayed;
+        this.topPlayed = await Score.getTopPlayed();
       },
 
       async fetchLeaderBoardScores() {
-        const leaderboardScores = await Score.getLeaderBoard(this.answerRange);
-        this.leaderBoardScores = leaderboardScores;
+        this.leaderBoardScores = await Score.getLeaderBoard(this.answerRange);
       },
     },
 

@@ -30,6 +30,10 @@
         }
       },
     },
+
+    mounted() {
+      this.$el.querySelector('input').focus();
+    },
   };
 </script>
 
