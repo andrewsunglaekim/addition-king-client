@@ -154,12 +154,14 @@
       display: flex;
     }
 
-    &__quiz {
+    &__quiz, &__user-prompt {
       flex: 4;
+      padding: 50px;
     }
 
     &__leaderboard {
       flex: 3;
+      padding: 50px;
     }
 
   }

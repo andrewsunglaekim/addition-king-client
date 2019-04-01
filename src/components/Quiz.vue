@@ -116,9 +116,9 @@
   scoped
   lang="scss">
   .quiz {
-    padding: 3vw;
     width: 100%;
     font-size: 7vh;
+    line-height: 7vh;
     text-align: right;
 
     &__num1, &__num2 {

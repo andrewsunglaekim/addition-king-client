@@ -1,12 +1,17 @@
 <template>
   <div class="leaderboard">
-    <header class="leaderboard__header">Level {{ answerRange }} - Leaderboard</header>
+    <header class="leaderboard__header">
+      <h2 class="leaderboard__level">Level {{ answerRange }}</h2>
+      <h3 class="leaderboard__sub-head">Leaderboard</h3>
+    </header>
+    <div class="leaderboard__header-divider"></div>
     <table class="leaderboard__table">
       <tr class="leaderboard__table-header">
-        <th>Name</th>
-        <th>Seconds</th>
-        <th>Total Correct</th>
+        <th class="leaderboard__table-header-name">Name</th>
+        <th class="leaderboard__table-header-seconds">Seconds</th>
+        <th class="leaderboard__table-header-correct">Correct</th>
       </tr>
+      <div class="leaderboard__header-divider"></div>
       <tr
         v-for="(score, i) in scores"
         class="leaderboard__score"
@@ -38,11 +43,29 @@
 
 <style lang="scss">
   .leaderboard {
+    font-family: 'Roboto Mono', monospace;
     width: 100%;
-    padding: 2rem;
 
     &__header {
-      text-align: center;
+      text-align: right;
+    }
+
+    &__header-divider {
+      border-radius: 20px;
+      height: 4px;
+      width: 100%;
+      margin: 6px 0 6px 0;
+      background: #333
+    }
+
+    &__level {
+      font-size: 2vh;
+      margin: 0;
+    }
+
+    &__sub-head {
+      font-size: 1.9vh;
+      margin: 0;
     }
 
     &__table {
@@ -51,14 +74,22 @@
 
     &__table-header, &__score {
       display: flex;
+    }
 
-      & > th, td {
-        flex: 1;
-      }
+    &__table-header-name, &__score-name {
+      flex: 1;
+    }
+
+    &__table-header-seconds, &__table-header-correct, &__score-time, &__score-correct {
+      flex: 1;
+    }
+
+    &__table-header-name, &__score-time, &__score-correct {
+      text-align: center;
     }
 
     &__score-name {
-      text-align: right;
+      text-align: left;
     }
   }
 </style>
