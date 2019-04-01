@@ -59,7 +59,7 @@
         numQuestions: 0,
         numCorrect: 0,
         isPromptingUser: false,
-        numTotalQuestions: 1,
+        numTotalQuestions: 5,
         leaderBoardScores: [],
         topPlayed: [],
       };
