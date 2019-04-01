@@ -25,7 +25,8 @@
       <Leaderboard
         v-if="leaderBoardScores"
         class="main__leaderboard"
-        :scores="leaderBoardScores"/>
+        :scores="leaderBoardScores"
+        :answerRange="answerRange"/>
     </section>
 
   </main>
@@ -143,6 +144,8 @@
 <style lang="scss">
   body {
     margin: 0;
+    overflow-x: hidden;
+    overflow-y: hidden;
   }
 
   .main {

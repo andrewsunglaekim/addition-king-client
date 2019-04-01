@@ -8,8 +8,9 @@
     <div
       class="quiz__num2"
       :class="transitionClassSecond"
-      :style="{ color: fontColor, transition: transProp }">{{ int2 }}
+      :style="{ color: fontColor, transition: transProp }">+ {{ int2 }}
     </div>
+    <div class="quiz__equality-line"></div>
     <input
       type="text"
       class="quiz__input"
@@ -29,7 +30,7 @@
         int1: 0,
         int2: 0,
         userAnswer: '',
-        fontColor: 'red',
+        fontColor: '#333',
         transitionClassFirst: '',
         transitionClassSecond: '',
         transProp: 'transform 300ms linear',
@@ -90,7 +91,7 @@
           this.setRandomTransDirection();
           setTimeout(() => {
             this.generateRandomNumbers();
-            this.fontColor = 'black';
+            this.fontColor = '#555';
             this.transProp = 'transform 300ms linear';
             this.transitionClassFirst = 'transition--neutral';
             this.transitionClassSecond = 'transition--neutral';
@@ -121,6 +122,7 @@
     text-align: right;
 
     &__num1, &__num2 {
+      font-family: 'Roboto Mono', monospace;
 
       &.transition--up {
         transform: translateY(-100vh);
@@ -139,7 +141,20 @@
       }
     }
 
+    &__equality-line {
+      border-radius: 8px;
+      height: 1vh;
+      background: #555;
+      width: 100%;
+    }
+
     &__input {
+      font-family: 'Roboto Mono', monospace;
+      outline: none;
+      border: 2px solid #ccc;
+      border-radius: 20px;
+      margin-top: 14px;
+      padding: 8px 16px 8px 0;
       width: 100%;
       font-size: 7vh;
       text-align: right;

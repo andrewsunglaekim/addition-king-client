@@ -1,6 +1,6 @@
 <template>
   <div class="leaderboard">
-    <header class="leaderboard__header"></header>
+    <header class="leaderboard__header">Level {{ answerRange }} - Leaderboard</header>
     <table class="leaderboard__table">
       <tr class="leaderboard__table-header">
         <th>Name</th>
@@ -28,6 +28,10 @@
         type: Array,
         required: true,
       },
+      answerRange: {
+        type: Number,
+        required: true,
+      },
     },
   };
 </script>
@@ -36,6 +40,10 @@
   .leaderboard {
     width: 100%;
     padding: 2rem;
+
+    &__header {
+      text-align: center;
+    }
 
     &__table {
       width: 100%;
@@ -46,8 +54,11 @@
 
       & > th, td {
         flex: 1;
-        text-align: center;
       }
+    }
+
+    &__score-name {
+      text-align: right;
     }
   }
 </style>
