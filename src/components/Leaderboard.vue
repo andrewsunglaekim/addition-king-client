@@ -4,14 +4,12 @@
       <h2 class="leaderboard__level">Level {{ answerRange }}</h2>
       <h3 class="leaderboard__sub-head">Leaderboard</h3>
     </header>
-    <div class="leaderboard__header-divider"></div>
     <table class="leaderboard__table">
       <tr class="leaderboard__table-header">
         <th class="leaderboard__table-header-name">Name</th>
         <th class="leaderboard__table-header-seconds">Seconds</th>
         <th class="leaderboard__table-header-correct">Correct</th>
       </tr>
-      <div class="leaderboard__header-divider"></div>
       <tr
         v-for="(score, i) in scores"
         class="leaderboard__score"
@@ -48,14 +46,9 @@
 
     &__header {
       text-align: right;
-    }
-
-    &__header-divider {
-      border-radius: 20px;
-      height: 4px;
-      width: 100%;
-      margin: 6px 0 6px 0;
-      background: #333
+      padding-bottom: 14px;
+      border-bottom: 4px solid #333;
+      margin-bottom: 14px;
     }
 
     &__level {
@@ -72,6 +65,16 @@
       width: 100%;
     }
 
+    &__table-header {
+      border-bottom: 4px solid #333;
+      padding-bottom: 14px;
+      margin-bottom: 14px;
+    }
+
+    &__score {
+      margin-bottom: 6px;
+    }
+
     &__table-header, &__score {
       display: flex;
     }
@@ -84,12 +87,13 @@
       flex: 1;
     }
 
-    &__table-header-name, &__score-time, &__score-correct {
+    &__score-time, &__score-correct {
       text-align: center;
     }
 
-    &__score-name {
+    &__score-name, &__table-header-name {
       text-align: left;
+      transform: translateX(20px);
     }
   }
 </style>

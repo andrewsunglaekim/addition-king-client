@@ -32,5 +32,6 @@
 
 <style lang="scss">
   .timer {
+
   }
 </style>

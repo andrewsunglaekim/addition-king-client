@@ -1,21 +1,25 @@
 <template>
-  <div class="quiz">
+  <div>
     <div
-      class="quiz__num1"
-      :class="transitionClassFirst"
-      :style="{ color: fontColor, transition: transProp }">{{ int1 }}
+      class="quiz"
+      :style="{ width: quizWidth }">
+      <div
+        class="quiz__num1"
+        :class="transitionClassFirst"
+        :style="{ color: fontColor, transition: transProp }">{{ int1 }}
+      </div>
+      <div
+        class="quiz__num2"
+        :class="transitionClassSecond"
+        :style="{ color: fontColor, transition: transProp }">+{{ int2 }}
+      </div>
+      <div class="quiz__equality-line"></div>
+      <input
+        type="text"
+        class="quiz__input"
+        @keypress="handleKeypress"
+        v-model="userAnswer">
     </div>
-    <div
-      class="quiz__num2"
-      :class="transitionClassSecond"
-      :style="{ color: fontColor, transition: transProp }">+ {{ int2 }}
-    </div>
-    <div class="quiz__equality-line"></div>
-    <input
-      type="text"
-      class="quiz__input"
-      @keypress="handleKeypress"
-      v-model="userAnswer">
   </div>
 </template>
 
@@ -33,7 +37,7 @@
         fontColor: '#333',
         transitionClassFirst: '',
         transitionClassSecond: '',
-        transProp: 'transform 300ms linear',
+        transProp: 'transform 200ms linear',
       };
     },
 
@@ -49,6 +53,11 @@
       },
       isCorrectAnswer() {
         return this.answer === this.parsedUserAnswer;
+      },
+      quizWidth() {
+        let percentageWidth = this.answer.toString().length * 12;
+        percentageWidth = percentageWidth > 100 ? 100 : percentageWidth;
+        return `${percentageWidth}%`;
       },
     },
 
@@ -95,8 +104,8 @@
             this.transProp = 'transform 300ms linear';
             this.transitionClassFirst = 'transition--neutral';
             this.transitionClassSecond = 'transition--neutral';
-          }, 10);
-        }, 300);
+          }, 20);
+        }, 200);
       },
       setRandomTransDirection() {
         const directions = ['up', 'down', 'left', 'right'];
@@ -116,13 +125,15 @@
   scoped
   lang="scss">
   .quiz {
-    width: 100%;
+    margin: auto;
     font-size: 7vh;
     line-height: 7vh;
     text-align: right;
 
     &__num1, &__num2 {
       font-family: 'Roboto Mono', monospace;
+      margin-bottom: 3vh;
+      padding-right: 20px;
 
       &.transition--up {
         transform: translateY(-100vh);
@@ -149,13 +160,14 @@
     }
 
     &__input {
+      width: calc(100% - 50px);
       font-family: 'Roboto Mono', monospace;
       outline: none;
       border: 2px solid #ccc;
       border-radius: 20px;
-      margin-top: 14px;
-      padding: 8px 16px 8px 0;
-      width: 100%;
+      margin-top: 4vh;
+      margin-right: 0;
+      padding: 8px 20px 8px;
       font-size: 7vh;
       text-align: right;
     }

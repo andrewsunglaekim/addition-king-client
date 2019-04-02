@@ -1,15 +1,21 @@
 <template>
   <main class="main">
     <header class="main__header">
-      <Navigator @routeChanged="handleRouteChanged"/>
-      <h1 class="main__h1">
-        Addition King
-      </h1>
-      <Timer
-        v-if="!isPromptingUser"
-        :numSeconds="numSeconds"
-        :intervalID="intervalID"
-        @timerStarted="handleTimerStart" />
+      <section class="main__header-content">
+        <Navigator
+          class="main__nav"
+          @routeChanged="handleRouteChanged"/>
+        <h1 class="main__h1">
+          Addition King
+        </h1>
+        <Timer
+          class="main__timer"
+          v-if="!isPromptingUser"
+          :numSeconds="numSeconds"
+          :intervalID="intervalID"
+          @timerStarted="handleTimerStart" />
+      </section>
+      <section class="main__header-filler"></section>
     </header>
     <section class="main__section">
       <Quiz
@@ -94,7 +100,9 @@
         this.$refs.quiz.$el.querySelector('input').focus();
         if (!this.intervalID) {
           this.intervalID = setInterval(() => {
-            this.numSeconds += 1;
+            const nextNum = this.numSeconds + 1;
+            this.numSeconds = 0;
+            this.numSeconds = nextNum;
           }, 1000);
         }
       },
@@ -143,12 +151,34 @@
 
 <style lang="scss">
   body {
-    margin: 0;
+    max-width: 1200px;
+    margin: auto;
     overflow-x: hidden;
     overflow-y: hidden;
   }
 
   .main {
+
+    &__header {
+      display: flex;
+    }
+
+    &__h1 {
+      margin: 8vh 0 1vh 0;
+      font-family: 'Roboto Mono', monospace;
+      font-size: 5vh;
+      text-align: center;
+    }
+
+    &__nav {
+      position: fixed;
+      top: 0;
+    }
+
+    &__timer {
+      text-align: center;
+      height: 4vh;
+    }
 
     &__section {
       display: flex;
@@ -159,9 +189,18 @@
       padding: 50px;
     }
 
+    &__header-content {
+      flex: 4;
+    }
+
+    &__header-filler {
+      flex: 2.5;
+    }
+
     &__leaderboard {
-      flex: 3;
+      flex: 2.5;
       padding: 50px;
+      transform: translateY(-20px);
     }
 
   }
