@@ -60,7 +60,7 @@
         numSeconds: 0,
         numQuestions: 0,
         numCorrect: 0,
-        isPromptingUser: true,
+        isPromptingUser: false,
         numTotalQuestions: 5,
         leaderBoardScores: [],
         topPlayed: [],
@@ -86,11 +86,11 @@
         }
         if (this.gameFinished) {
           if (this.numCorrect !== 0) {
+            this.clearTimer();
             this.isPromptingUser = true;
             return;
           }
           this.resetGame();
-          this.clearTimer();
         }
       },
       handleTimerStart() {
@@ -125,6 +125,7 @@
         this.$refs.quiz.generateRandomNumbers();
       },
       resetGame() {
+        this.clearTimer();
         this.isPromptingUser = false;
         this.numSeconds = 0;
         this.numQuestions = 0;

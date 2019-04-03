@@ -57,9 +57,9 @@
         return this.answer === this.parsedUserAnswer;
       },
       quizWidth() {
-        let percentageWidth = this.answer.toString().length * 8;
+        let percentageWidth = this.answer.toString().length * 9;
         percentageWidth = percentageWidth > 100 ? 100 : percentageWidth;
-        percentageWidth = percentageWidth < 18 ? 18 : percentageWidth;
+        percentageWidth = percentageWidth < 22 ? 22 : percentageWidth;
         return `${percentageWidth}%`;
       },
     },

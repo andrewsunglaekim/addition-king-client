@@ -25,7 +25,7 @@
 
     data() {
       return {
-        answerRange: '',
+        answerRange: this.$store.state.currentRoute.to.params.answerRange,
         isNavigating: false,
       };
     },
