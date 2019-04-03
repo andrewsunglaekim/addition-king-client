@@ -1,23 +1,18 @@
 <template>
   <main class="main">
-    <header class="main__header">
-      <section class="main__header-content">
-        <Navigator
-          class="main__nav"
-          @routeChanged="handleRouteChanged"/>
-        <h1 class="main__h1">
-          Addition King
-        </h1>
-        <Timer
-          class="main__timer"
-          v-if="!isPromptingUser"
-          :numSeconds="numSeconds"
-          :intervalID="intervalID"
-          @timerStarted="handleTimerStart" />
-      </section>
-      <section class="main__header-filler"></section>
-    </header>
     <section class="main__section">
+      <Navigator
+        class="main__nav"
+        @routeChanged="handleRouteChanged"/>
+      <h1 class="main__h1">
+        Addition King
+      </h1>
+      <Timer
+        class="main__timer"
+        v-if="!isPromptingUser"
+        :numSeconds="numSeconds"
+        :intervalID="intervalID"
+        @timerStarted="handleTimerStart" />
       <Quiz
         v-if="!isPromptingUser"
         class="main__quiz"
@@ -90,7 +85,11 @@
           }
         }
         if (this.gameFinished) {
-          this.isPromptingUser = true;
+          if (this.numCorrect !== 0) {
+            this.isPromptingUser = true;
+            return;
+          }
+          this.resetGame();
           this.clearTimer();
         }
       },
@@ -151,13 +150,14 @@
 
 <style lang="scss">
   body {
+    background: #fbfbfb;
+  }
+
+  .main {
     max-width: 1200px;
     margin: auto;
     overflow-x: hidden;
     overflow-y: hidden;
-  }
-
-  .main {
 
     &__header {
       display: flex;
@@ -172,35 +172,27 @@
 
     &__nav {
       position: fixed;
-      top: 0;
+      top: 20px;
+      left: 20px;
     }
 
     &__timer {
       text-align: center;
-      height: 4vh;
     }
 
     &__section {
-      display: flex;
+      width: 60%;
     }
 
     &__quiz, &__user-prompt {
-      flex: 4;
       padding: 50px;
-    }
-
-    &__header-content {
-      flex: 4;
-    }
-
-    &__header-filler {
-      flex: 2.5;
     }
 
     &__leaderboard {
-      flex: 2.5;
-      padding: 50px;
-      transform: translateY(-20px);
+      top: 18vh;
+      right: 12vw;
+      position: fixed;
+      width: 30%;
     }
 
   }

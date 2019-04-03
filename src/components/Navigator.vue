@@ -2,16 +2,17 @@
   <div class="navigator">
     <button
       v-if="!isNavigating"
-      class="navigator-button"
+      class="navigator__button"
       @click="initiateNav">Change level
     </button>
     <div
       v-else
-      class="navigator_nav">
+      class="navigator__nav">
       <label class="navigator__label">Enter level</label>
       <input
         class="navigator__input"
         type="text"
+        ref="input"
         v-model="answerRange"
         @keypress="handleKeypress">
     </div>
@@ -32,6 +33,9 @@
     methods: {
       initiateNav() {
         this.isNavigating = true;
+        this.$nextTick(() => {
+          this.$refs.input.focus();
+        });
         console.log('initiated switchgign snav');
       },
       handleKeypress(e) {
@@ -61,5 +65,44 @@
 
 <style lang="scss">
   .navigator {
+
+    &__button {
+      padding: 0 16px 0 16px;
+      font-family: 'Roboto Mono', monospace;
+      font-size: 16px;
+      height: 40px;
+      border-radius: 20px;
+      outline: none;
+      position: relative;
+      cursor: pointer;
+      background: #7afdd6;
+      border: none;
+      box-shadow: 0px 5px #777;
+      transition: all 0.2s ease;
+
+      &:active {
+        top: 4px;
+        box-shadow: 0px 0px #d3545d;
+      }
+    }
+
+    &__label {
+      display: block;
+      font-family: 'Roboto Mono', monospace;
+      font-size: 16px;
+      margin-left: 10px;
+      padding-top: 14px;
+    }
+
+    &__input {
+      margin-top: 8px;
+      width: 120px;
+      text-align: center;
+      font-family: 'Roboto Mono', monospace;
+      font-size: 14px;
+      outline: none;
+      border: 2px solid #ccc;
+      border-radius: 20px;
+    }
   }
 </style>

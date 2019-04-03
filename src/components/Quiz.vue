@@ -37,6 +37,8 @@
         fontColor: '#333',
         transitionClassFirst: '',
         transitionClassSecond: '',
+        correctColor: '#7afdd6',
+        incorrectColor: '#ed7189',
         transProp: 'transform 200ms linear',
       };
     },
@@ -55,8 +57,9 @@
         return this.answer === this.parsedUserAnswer;
       },
       quizWidth() {
-        let percentageWidth = this.answer.toString().length * 12;
+        let percentageWidth = this.answer.toString().length * 8;
         percentageWidth = percentageWidth > 100 ? 100 : percentageWidth;
+        percentageWidth = percentageWidth < 18 ? 18 : percentageWidth;
         return `${percentageWidth}%`;
       },
     },
@@ -93,7 +96,7 @@
         this.int2 = Math.max(intX, intY) - Math.min(intX, intY) - 1;
       },
       animateNumbers(isCorrect) {
-        this.fontColor = isCorrect ? 'green' : 'red';
+        this.fontColor = isCorrect ? this.correctColor : this.incorrectColor;
         this.setRandomTransDirection();
         setTimeout(() => {
           this.transProp = 'none';
@@ -129,6 +132,7 @@
     font-size: 7vh;
     line-height: 7vh;
     text-align: right;
+    transition: width 300ms linear;
 
     &__num1, &__num2 {
       font-family: 'Roboto Mono', monospace;
