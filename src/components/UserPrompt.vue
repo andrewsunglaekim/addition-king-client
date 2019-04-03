@@ -39,5 +39,26 @@
 
 <style lang="scss">
   .user-prompt {
+    margin-top: 8vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    &__label {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 4vh;
+    }
+
+    &__input {
+      margin-top: 8px;
+      width: 160px;
+      text-align: center;
+      font-family: 'Roboto Mono', monospace;
+      font-size: 20px;
+      outline: none;
+      border: 2px solid #ccc;
+      border-radius: 20px;
+    }
   }
 </style>

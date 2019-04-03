@@ -82,7 +82,7 @@
 
       &:active {
         top: 4px;
-        box-shadow: 0px 0px #d3545d;
+        box-shadow: 0px 0px #ccc;
       }
     }
 
@@ -90,8 +90,8 @@
       display: block;
       font-family: 'Roboto Mono', monospace;
       font-size: 16px;
-      margin-left: 10px;
-      padding-top: 14px;
+      margin-left: 14px;
+      padding-top: 10px;
     }
 
     &__input {

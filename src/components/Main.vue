@@ -60,7 +60,7 @@
         numSeconds: 0,
         numQuestions: 0,
         numCorrect: 0,
-        isPromptingUser: false,
+        isPromptingUser: true,
         numTotalQuestions: 5,
         leaderBoardScores: [],
         topPlayed: [],
